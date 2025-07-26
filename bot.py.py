@@ -1,7 +1,7 @@
 import os
 import discord
 from discord.ext import commands
-import json # Importa a biblioteca JSON
+import json
 
 # --- Configurações Iniciais ---
 intents = discord.Intents.default()
@@ -63,21 +63,18 @@ def carregar_dados():
 def calcular_locomocao(vel, bonus_locomocao):
     """
     Calcula o valor da locomoção.
-    Locomoção começa com 4 e só é influenciada pela VEL quando VEL >= 50.
+    Locomoção começa com 4 e é sempre influenciada pela VEL.
     """
-    if vel < 50:
-        return 4 + bonus_locomocao
-    else:
-        return (vel // 10) + bonus_locomocao
+    return 4 + (vel // 10) + bonus_locomocao
 
 def calcular_pr(res, bonus_pr):
     """Calcula os Pontos de Resistência (PR)."""
     return (20 + (res // 15)) + bonus_pr
 
-def calcular_kritos(pts_mag, bonus_kritos):
+def calcular_kritos(mag_status, bonus_kritos):
     """Calcula o valor de Kritos."""
     # Kritos agora usa a MAG do status, não os pontos gastos, para refletir bônus etc.
-    return (40 + (users[str(list(users.keys())[0])]["status"]["MAG"] * 2)) + bonus_kritos 
+    return (40 + (mag_status * 2)) + bonus_kritos 
 
 
 def atualizar_status(user):
